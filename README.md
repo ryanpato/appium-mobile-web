@@ -1,13 +1,21 @@
 # appium-mobile-web
 
-An simple test-automation demonstration project for end-to-end (E2E) UI-Testing a mobile (iOS currently) web-app/site. Utilising Ruby and Appium.
+A work-in-progress test-automation demonstration project for end-to-end (E2E) UI-Testing a mobile web-app/site cross platform utilising Ruby and Appium.
 
 This branch uses ['Cucumber'](https://github.com/cucumber/cucumber-ruby).
 Please see [`main`](https://github.com/ryanpato/appium-mobile-web/tree/main) for RSpec.
 
-## Tests
+## How it works
 
-**Feature Example**
+Cucumber initiates `env.rb` which in turn:
+- figures out what platform is to run based on an environment-variable "`Platform`"
+- requires all relavent folders `helpers`, `pages`, `utils` etc
+- creates appium capabilities for mobile-web browser testing per platform
+- configures the driver and some start/stop rules
+- tests run in succession
+
+## Test example
+
 ```ruby
 Feature: Search Results
 
@@ -18,23 +26,16 @@ Feature: Search Results
 		Then the second page of content should be loaded
 ```
 
-**Output**
-```ruby
-appium-mobile-web % bundle exec cucumber
-Feature: Search Results
+## Setup
 
-  Scenario: User selects more results                # features/search_results.feature:3
-    Given the page "https://duckduckgo.com"          # features/step_definitions/steps.rb:1
-    When the user searches for "Hello World!"        # features/step_definitions/steps.rb:5
-    And taps more results button                     # features/step_definitions/steps.rb:11
-    Then the second page of content should be loaded # features/step_definitions/steps.rb:17
+**Prerequisites:**
 
-1 scenario (1 passed)
-4 steps (4 passed)
-0m3.800s
-```
+- Appium
+- Xcode
+- Android Studio
+- Applicable AVD & Simulators available
 
-## Run
+**Commands:**
 
-`bundle exec cucumber`
-
+- **Android:** `bundle exec cucumber PLATFORM=ANDROID`
+- **iOS:** `bundle exec cucumber PLATFORM=iOS`
